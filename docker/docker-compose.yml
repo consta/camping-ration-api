@@ -1,0 +1,13 @@
+version: '2'
+services:
+ camping-mysql:
+   image: mysql/mysql-server:5.6
+   container_name: camping-mysql
+   ports:
+    - "33061:3306"
+   volumes:
+    - ./data:/var/lib/mysql
+   environment:
+    - MYSQL_ROOT_PASSWORD=root
+
+
