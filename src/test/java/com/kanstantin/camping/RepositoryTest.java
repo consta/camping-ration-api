@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,10 +19,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 @Slf4j
-@RunWith(SpringRunner.class)
-@Import(value = Application.class)
-@TestPropertySource(locations = "classpath:test-application.properties")
-public class RepositoryTest {
+public class RepositoryTest extends MyIntegrationTest {
     @Autowired
     private ProductRepository repository;
 

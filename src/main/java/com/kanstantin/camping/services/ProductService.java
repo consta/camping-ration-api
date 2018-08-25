@@ -31,7 +31,14 @@ public class ProductService {
         return dtos;
     }
 
+    public ProductDTO getProduct(Integer id) {
+        return toProductDTO(repository.findById(id).orElse(null));
+    }
+
     private ProductDTO toProductDTO(ProductEntity entity) {
+        if (entity == null) {
+            return null;
+        }
         ProductDTO dto = new ProductDTO();
         mapper.map(entity, dto);
         return dto;

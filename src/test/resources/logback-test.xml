@@ -5,7 +5,7 @@
     <logger name="org.springframework.beans" level="error" />
     <logger name="org.springframework.context" level="error" />
     <logger name="org.springframework.transaction" level="error" />
-    <logger name="org.springframework.web" level="error" />
-    <logger name="org.springframework.test" level="error" />
+    <logger name="org.springframework.web" level="debug" />
+    <logger name="org.springframework.test" level="debug" />
     <logger name="org.hibernate" level="error" />
 </configuration>
