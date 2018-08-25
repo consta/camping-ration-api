@@ -1,5 +1,6 @@
 package com.kanstantin.camping.controllers;
 
+import com.kanstantin.camping.domain.MyResponse;
 import com.kanstantin.camping.model.ProductDTO;
 import com.kanstantin.camping.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,7 @@ public class ProductController {
 
     @RequestMapping("/products")
     @GetMapping
-    public List<ProductDTO> getProducts() {
-        return productService.getProducts();
+    public MyResponse getProducts() {
+        return new MyResponse(1000, "success", productService.getProducts());
     }
 }
