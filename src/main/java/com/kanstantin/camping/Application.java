@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 @ComponentScan(basePackages = {
         "com.kanstantin.camping.controllers",
@@ -20,7 +22,7 @@ public class Application {
 
     @Bean
     public Mapper mapper() {
-        return new DozerBeanMapper();
+        return new DozerBeanMapper(Arrays.asList("mapping.xml"));
     }
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

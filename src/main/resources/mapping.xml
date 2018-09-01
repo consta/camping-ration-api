@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+
+    <mapping>
+        <class-a>com.kanstantin.camping.model.ProductDTO</class-a>
+        <class-b>com.kanstantin.camping.domain.ProductEntity</class-b>
+        <field>
+            <a>id</a>
+            <b>id</b>
+        </field>
+        <field>
+            <a>name</a>
+            <b>name</b>
+        </field>
+        <field>
+            <a>calories</a>
+            <b>calories</b>
+        </field>
+        <field>
+            <a>proteins</a>
+            <b>proteins</b>
+        </field>
+        <field>
+            <a>fats</a>
+            <b>fats</b>
+        </field>
+        <field>
+            <a>carbohydrates</a>
+            <b>carbohydrates</b>
+        </field>
+        <field-exclude>
+            <a>categories</a>
+            <b>categories</b>
+        </field-exclude>
+    </mapping>
+
+</mappings>

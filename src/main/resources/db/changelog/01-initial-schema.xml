@@ -23,13 +23,13 @@
 
         <addPrimaryKey columnNames="id"
                        constraintName="pk_product"
-                       tableName="products" />
+                       tableName="products"/>
 
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
                           startWith="10000"
-                          tableName="products" />
+                          tableName="products"/>
 
         <createTable tableName="categories"
                      remarks="A table with category names">
@@ -43,13 +43,13 @@
 
         <addPrimaryKey columnNames="id"
                        constraintName="pk_category"
-                       tableName="categories" />
+                       tableName="categories"/>
 
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
                           startWith="200"
-                          tableName="categories" />
+                          tableName="categories"/>
 
         <createTable tableName="product_categories"
                      remarks="A table with list of product categories">
@@ -57,8 +57,11 @@
                 <constraints nullable="false"></constraints>
             </column>
             <column name="product_id" type="int">
+                <constraints unique="false" nullable="true"></constraints>
+
             </column>
             <column name="category_id" type="int">
+                <constraints unique="false" nullable="true"></constraints>
             </column>
         </createTable>
 
@@ -71,21 +74,38 @@
                           incrementBy="1"
                           startWith="1"
                           tableName="product_categories" />
+    </changeSet>
 
-        <addForeignKeyConstraint baseColumnNames="product_id"
-                                 baseTableName="product_categories"
-                                 constraintName="fk_product_categories_product_id"
-                                 onDelete="CASCADE"
-                                 onUpdate="RESTRICT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="products"/>
-
-        <addForeignKeyConstraint baseColumnNames="category_id"
-                                 baseTableName="product_categories"
-                                 constraintName="fk_product_categories_category_id"
-                                 onDelete="CASCADE"
-                                 onUpdate="RESTRICT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="categories"/>
+    <changeSet author="kanstantin" id="02">
+        <sqlFile dbms="mysql"
+                 encoding="utf8"
+                 path="../data/products.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+        <!--
+                <loadData encoding="UTF-8"
+                                file="db/data/products.csv"
+                                tableName="products">
+                    <column name="id" header="id" type="int"/>
+                    <column name="name" header="name" type="varchar(255)"/>
+                    <column name="calories" header="calories" type="float"/>
+                    <column name="proteins" header="proteins" type="float"/>
+                    <column name="fats" header="fats" type="float"/>
+                    <column name="carbohydrates" header="carbohydrates" type="float"/>
+                </loadData>
+                <loadData encoding="UTF-8"
+                                file="db/data/categories.csv"
+                                tableName="categories">
+                    <column name="id" type="int"/>
+                    <column name="name" type="varchar(255)"/>
+                </loadData>
+                <loadData encoding="UTF-8"
+                                file="db/data/product_categories.csv"
+                                tableName="product_categories">
+                    <column name="product_id" type="int"/>
+                    <column name="category_id" type="int"/>
+                </loadData>
+                -->
     </changeSet>
 </databaseChangeLog>
