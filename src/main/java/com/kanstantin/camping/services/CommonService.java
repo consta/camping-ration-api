@@ -83,4 +83,8 @@ public class CommonService {
         }
         return entity;
     }
+
+    public void deleteProduct(Integer id) {
+        productRepository.deleteById(id);
+    }
 }

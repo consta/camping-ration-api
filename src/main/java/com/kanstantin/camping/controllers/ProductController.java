@@ -56,4 +56,13 @@ public class ProductController {
         return ResponseEntity.ok(new MyResponse(1000, "success", productAfter));
     }
 
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<MyResponse> deleteProduct(@PathVariable(name = "id") String id) {
+        ProductDTO product = commonService.getProduct(Integer.parseInt(id));
+        if (product == null) {
+            return ResponseEntity.notFound().build();
+        }
+        commonService.deleteProduct(product.getId());
+        return ResponseEntity.noContent().build();
+    }
 }
