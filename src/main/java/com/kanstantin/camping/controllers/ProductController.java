@@ -22,6 +22,7 @@ public class ProductController {
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<MyResponse> getProducts() {
         MyResponse response = new MyResponse(1000, "success", commonService.getProducts());
+        log.info("retrieved all products, {}", response);
         return ResponseEntity.ok(response);
     }
 
