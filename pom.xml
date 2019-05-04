@@ -79,7 +79,7 @@
                             ${basedir}/src/main/resources/db/liquibase-changelog.xml
                         </changeLogFile>
                         <driver>com.mysql.jdbc.Driver</driver>
-                        <url>jdbc:mysql://localhost:33061/camping?characterEncoding=utf-8</url>
+                        <url>jdbc:mysql://localhost:3306/camping?characterEncoding=utf-8</url>
                         <username>camping</username>
                         <password>sql</password>
                     </configuration>

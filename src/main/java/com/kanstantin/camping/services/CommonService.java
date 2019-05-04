@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class CommonService {
     @Autowired
+    // can be used to autowire bean on the setter method, constructor, etc.
     private ProductRepository productRepository;
 
     @Autowired
@@ -35,6 +36,7 @@ public class CommonService {
     }
 
     public ProductDTO getProduct(Integer id) {
+        //DTO stands for Data Transfer Object and is a simple Plain Old Java Object which contains class properties and getters and settings methods for accessing those properties.
         return toProductDTO(productRepository.findById(id).orElse(null));
     }
 
