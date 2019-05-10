@@ -18,6 +18,7 @@
         <column name="count_people_outfit" type="int"></column>
         <column name="start_date_outfit" type="datetime"></column>
         <column name="end_date_outfit" type="datetime"></column>
+        <column name="description" type="varchar(255)"></column>
         </createTable>
 
     <addPrimaryKey columnNames="id"
@@ -40,7 +41,7 @@
             <column name="name_day" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="outfit_of_day" type="int)">
+            <column name="outfit_of_day" type="int">
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
@@ -52,7 +53,7 @@
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
-                          startWith="200000"
+                          startWith="100"
                           tableName="day"/>
         <addForeignKeyConstraint baseColumnNames="outfit_of_day"
                                  baseTableName="day"
@@ -85,7 +86,7 @@
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
-                          startWith="300000"
+                          startWith="1000"
                           tableName="meal"/>
 
     </changeSet>
@@ -109,7 +110,7 @@
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
-                          startWith="400000"
+                          startWith="10000"
                           tableName="dish"/>
 
     </changeSet>
@@ -172,7 +173,7 @@
 
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="dish_has_product"
-                                 constraintName="fk_product_of_dish"
+                                 constraintName="fk_product_creates_dish"
                                  deferrable="true"
                                  initiallyDeferred="true"
                                  onDelete="CASCADE"
@@ -252,7 +253,7 @@
     </changeSet>
 
     <changeSet id="01" author="kanstantin">
-        <createTable tableName="products"
+        <createTable tableName="product"
                      remarks="A table to contain all products">
             <column name="id" type="int">
                 <constraints nullable="false"></constraints>
@@ -269,13 +270,13 @@
 
         <addPrimaryKey columnNames="id"
                        constraintName="pk_product"
-                       tableName="products"/>
+                       tableName="product"/>
 
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
                           startWith="10000"
-                          tableName="products"/>
+                          tableName="product"/>
         <addForeignKeyConstraint baseColumnNames="category_of_product"
                                  baseTableName="product"
                                  constraintName="fk_category_of_product"
@@ -296,6 +297,7 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="parent_cat" type="int"></column>
         </createTable>
 
         <addPrimaryKey columnNames="id"
