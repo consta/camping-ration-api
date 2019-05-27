@@ -6,6 +6,73 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
+    <changeSet id="01" author="kanstantin">
+        <createTable tableName="product"
+                     remarks="A table to contain all products">
+            <column name="id" type="int">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="name_product" type="varchar(255)">
+                <constraints  nullable="false" unique="true"/>
+            </column>
+            <column name="calories_product" type="float"></column>
+            <column name="proteins_product" type="float"></column>
+            <column name="fats_product" type="float"></column>
+            <column name="carbohydrates_product" type="float"></column>
+            <column name="category_of_product" type="int"></column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_product"
+                       tableName="product"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          startWith="10000"
+                          tableName="product"/>
+    </changeSet>
+
+    <changeSet id="02" author="kanstantin">
+        <createTable tableName="prod_category"
+                     remarks="A table with list of product categories">
+            <column name="id" type="int">
+                <constraints nullable="false"></constraints>
+            </column>
+            <column name="name_prod_cat" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="parent_prod_cat" type="int"></column>
+        </createTable>
+
+        <addPrimaryKey columnNames="id"
+                       constraintName="pk_category"
+                       tableName="prod_category"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          startWith="200"
+                          tableName="prod_category"/>
+        <addForeignKeyConstraint baseColumnNames="parent_prod_cat"
+                                 baseTableName="prod_category"
+                                 constraintName="fk_parent_prod_category"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="prod_category"/>
+
+        <addForeignKeyConstraint baseColumnNames="category_of_product"
+                                 baseTableName="product"
+                                 constraintName="fk_category_of_product"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="prod_category"/>
+
+
+    </changeSet>
+
     <changeSet id="01" author="volha">
     <createTable tableName="outfit"
                  remarks="A table to contain all outfits">
@@ -61,8 +128,6 @@
         <addForeignKeyConstraint baseColumnNames="outfit_of_day"
                                  baseTableName="day"
                                  constraintName="fk_outfit_of_day"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -135,8 +200,6 @@
         <addForeignKeyConstraint baseColumnNames="meal_id"
                                  baseTableName="day_has_meal"
                                  constraintName="fk_meal_of_day"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -145,8 +208,6 @@
         <addForeignKeyConstraint baseColumnNames="day_id"
                                  baseTableName="day_has_meal"
                                  constraintName="fk_day_with_meal"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -158,7 +219,7 @@
     <changeSet id="06" author="volha">
         <createTable tableName="meal_has_product"
                      remarks="A table to contain dependencies between meals and products">
-            <column name="meal_id" type="int)">
+            <column name="meal_id" type="int">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="product_id" type="int">
@@ -170,8 +231,6 @@
         <addForeignKeyConstraint baseColumnNames="meal_id"
                                  baseTableName="meal_has_product"
                                  constraintName="fk_meal_from_product"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -180,8 +239,6 @@
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="meal_has_product"
                                  constraintName="fk_product_of_meal"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -205,8 +262,6 @@
         <addForeignKeyConstraint baseColumnNames="meal_id"
                                  baseTableName="meal_has_dish"
                                  constraintName="fk_meal_of_dish"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -215,8 +270,6 @@
         <addForeignKeyConstraint baseColumnNames="dish_id"
                                  baseTableName="meal_has_dish"
                                  constraintName="fk_dish_of_meal"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -227,7 +280,7 @@
     <changeSet id="08" author="volha">
         <createTable tableName="dish_has_product"
                      remarks="A table to contain dependencies between dishes and products">
-            <column name="dish_id" type="int)">
+            <column name="dish_id" type="int">
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="product_id" type="int">
@@ -239,8 +292,6 @@
         <addForeignKeyConstraint baseColumnNames="dish_id"
                                  baseTableName="dish_has_product"
                                  constraintName="fk_dish_for_product"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -249,8 +300,6 @@
         <addForeignKeyConstraint baseColumnNames="product_id"
                                  baseTableName="dish_has_product"
                                  constraintName="fk_product_creates_dish"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
                                  onDelete="CASCADE"
                                  onUpdate="RESTRICT"
                                  referencedColumnNames="id"
@@ -259,76 +308,6 @@
     </changeSet>
 
 
-
-    <changeSet id="01" author="kanstantin">
-        <createTable tableName="product"
-                     remarks="A table to contain all products">
-            <column name="id" type="int">
-                <constraints nullable="false"></constraints>
-            </column>
-            <column name="name_product" type="varchar(255)">
-                <constraints  nullable="false" unique="true"/>
-            </column>
-            <column name="calories_product" type="float"></column>
-            <column name="proteins_product" type="float"></column>
-            <column name="fats_product" type="float"></column>
-            <column name="carbohydrates_product" type="float"></column>
-            <column name="category_of_product" type="int"></column>
-        </createTable>
-
-        <addPrimaryKey columnNames="id"
-                       constraintName="pk_product"
-                       tableName="product"/>
-
-        <addAutoIncrement columnDataType="int"
-                          columnName="id"
-                          incrementBy="1"
-                          startWith="10000"
-                          tableName="product"/>
-        <addForeignKeyConstraint baseColumnNames="category_of_product"
-                                 baseTableName="product"
-                                 constraintName="fk_category_of_product"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
-                                 onDelete="CASCADE"
-                                 onUpdate="RESTRICT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="prod_category"/>
-    </changeSet>
-
-    <changeSet id="02" author="kanstantin">
-        <createTable tableName="prod_category"
-                     remarks="A table with list of product categories">
-            <column name="id" type="int">
-                <constraints nullable="false"></constraints>
-            </column>
-            <column name="name_prod_cat" type="varchar(255)">
-                <constraints nullable="false" unique="true"/>
-            </column>
-            <column name="parent_prod_cat" type="int"></column>
-        </createTable>
-
-        <addPrimaryKey columnNames="id"
-                       constraintName="pk_category"
-                       tableName="prod_category"/>
-
-        <addAutoIncrement columnDataType="int"
-                          columnName="id"
-                          incrementBy="1"
-                          startWith="200"
-                          tableName="prod_category"/>
-        <addForeignKeyConstraint baseColumnNames="parent_prod_cat"
-                                 baseTableName="prod_category"
-                                 constraintName="fk_parent_prod_category"
-                                 deferrable="true"
-                                 initiallyDeferred="true"
-                                 onDelete="CASCADE"
-                                 onUpdate="RESTRICT"
-                                 referencedColumnNames="id"
-                                 referencedTableName="prod_category"/>
-
-
-    </changeSet>
 
     <changeSet author="kanstantin" id="03">
         <sqlFile dbms="mysql"
