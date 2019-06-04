@@ -1,5 +1,4 @@
 package com.kanstantin.camping.domain;
-
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -10,7 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "categories")
 @Data
-public class CategoryEntity {
+public class DishCategoryEntity {
     @Id
     private Integer id;
 
@@ -18,5 +17,6 @@ public class CategoryEntity {
     private String name;
 
     @Column
-    private String parentCat;
+    private String parentDishCat;
 }
+

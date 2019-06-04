@@ -1,5 +1,4 @@
 package com.kanstantin.camping.domain;
-
 import lombok.Data;
 import org.dozer.Mapping;
 
@@ -17,13 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.Constraint;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "product")
+@Table(name = "meal")
 @Data
-public class ProductEntity {
+
+public class MealEntity {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,34 +32,5 @@ public class ProductEntity {
 
     @Column
     private String name;
-
-    @Column
-    private Float calories;
-
-    @Column
-    private Float proteins;
-
-    @Column
-    private Float fats;
-
-    @Column
-    private Float carbohydrates;
-
-
-    //
-
-          //  <column name="category_of_product" type="int"></column>
-
-    //
-
-
-    // exclude from mapping with dozer
-    @JoinTable(name = "product_categories",
-            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<CategoryEntity> categories;
-
-
 
 }
