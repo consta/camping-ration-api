@@ -337,7 +337,7 @@
                                 file="db/data/product_categories.csv"
                                 tableName="product_categories">
                     <column name="product_id" type="int"/>
-                    <column name="category_id" type="int"/>
+                    <column name="category_id" type="varchar(255)"/>
                 </loadData>
                 -->
     </changeSet>
