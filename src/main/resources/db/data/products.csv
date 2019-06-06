@@ -1,4 +1,4 @@
-id,name,calories,proteins,fats,carbohydrates,category_of_product
+id,name_product,calories_product,proteins_product,fats_product,carbohydrates_product,category_of_product
 1000,'Хлеб "Бородинский"',207.6.8,1.3,40.7,1
 1001,'Баранки, сушки',272,8.6,0.5,56.8,1
 1002,'Мука пшеничная',315,8.3,1.4,65.5,1

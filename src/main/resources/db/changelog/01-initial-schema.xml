@@ -316,29 +316,23 @@
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
-        <!--
+
                 <loadData encoding="UTF-8"
                                 file="db/data/products.csv"
-                                tableName="products">
+                                tableName="product">
                     <column name="id" header="id" type="int"/>
-                    <column name="name" header="name" type="varchar(255)"/>
-                    <column name="calories" header="calories" type="float"/>
-                    <column name="proteins" header="proteins" type="float"/>
-                    <column name="fats" header="fats" type="float"/>
-                    <column name="carbohydrates" header="carbohydrates" type="float"/>
-                </loadData>
-                <loadData encoding="UTF-8"
-                                file="db/data/categories.csv"
-                                tableName="categories">
-                    <column name="id" type="int"/>
-                    <column name="name" type="varchar(255)"/>
+                    <column name="name_product" header="name" type="varchar(255)"/>
+                    <column name="calories_product" header="calories" type="float"/>
+                    <column name="proteins_product" header="proteins" type="float"/>
+                    <column name="fats_product" header="fats" type="float"/>
+                    <column name="carbohydrates_product" header="carbohydrates" type="float"/>
                 </loadData>
                 <loadData encoding="UTF-8"
                                 file="db/data/product_categories.csv"
-                                tableName="product_categories">
-                    <column name="product_id" type="int"/>
-                    <column name="category_id" type="varchar(255)"/>
+                                tableName="prod_category">
+                     <column name="id" type="int"/>
+                    <column name="name_prod_cat" type="varchar(255)"/>
                 </loadData>
-                -->
+
     </changeSet>
 </databaseChangeLog>

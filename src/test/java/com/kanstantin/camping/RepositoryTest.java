@@ -30,7 +30,7 @@ public class RepositoryTest extends MyIntegrationTest {
 
     @Test
     public void testProductRead() throws Exception {
-        ProductEntity p = repository.findById(10000).get();
+        ProductEntity p = repository.findById(1000).get();
         assertNotNull(p.getName());
         assertNotNull(p.getCalories());
         assertNotNull(p.getProteins());

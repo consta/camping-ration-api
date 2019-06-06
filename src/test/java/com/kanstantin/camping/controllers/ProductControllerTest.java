@@ -43,7 +43,7 @@ public class ProductControllerTest extends MyIntegrationTest {
 
     @Test
     public void testProductsFindById() throws Exception {
-        mockMvc.perform(get("/api/products/10000"))
+        mockMvc.perform(get("/api/products/1000"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -64,7 +64,7 @@ public class ProductControllerTest extends MyIntegrationTest {
         dto.setProteins(1.1F);
         dto.setFats(2.2F);
         dto.setCarbohydrates(3.3F);
-        dto.setCategories(Arrays.asList(200));
+       // dto.setCategories(Arrays.asList(200));
         ObjectMapper oMapper = new ObjectMapper();
         String json = oMapper.writeValueAsString(dto);
         mockMvc.perform(put("/api/products/" + dto.getId())
