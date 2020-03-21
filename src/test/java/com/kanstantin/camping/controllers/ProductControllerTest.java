@@ -82,7 +82,7 @@ public class ProductControllerTest extends MyIntegrationTest {
         dto.setProteins(11.11F);
         dto.setFats(22.22F);
         dto.setCarbohydrates(33.33F);
-        dto.setCategories(Arrays.asList(201));
+        dto.setCategories(Arrays.asList(2));
         ObjectMapper oMapper = new ObjectMapper();
         String json = oMapper.writeValueAsString(dto);
         mockMvc.perform(post("/api/products/")

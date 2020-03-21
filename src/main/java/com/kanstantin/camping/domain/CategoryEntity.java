@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "prod_category")
 @Data
 public class CategoryEntity {
     @Id
@@ -17,6 +17,6 @@ public class CategoryEntity {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "parent_cat")
     private String parentCat;
 }
