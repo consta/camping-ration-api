@@ -26,5 +26,6 @@ _*
 hs_err_pid*
 target/
 docker/data
+config/
 *.iml
 .idea/
