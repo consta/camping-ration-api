@@ -52,6 +52,7 @@
                           tableName="categories"/>
 
         <createTable tableName="product_categories"
+                     schemaName="PUBLIC"
                      remarks="A table with list of product categories">
             <column name="id" type="int">
                 <constraints nullable="false"></constraints>
@@ -67,45 +68,45 @@
 
         <addPrimaryKey columnNames="id"
                        constraintName="pk_product_categories"
-                       tableName="product_categories" />
+                       tableName="product_categories"/>
 
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           incrementBy="1"
                           startWith="1"
-                          tableName="product_categories" />
+                          tableName="product_categories"
+        />
     </changeSet>
 
     <changeSet author="kanstantin" id="02">
-        <sqlFile dbms="mysql"
-                 encoding="utf8"
-                 path="../data/products.sql"
-                 relativeToChangelogFile="true"
-                 splitStatements="true"
-                 stripComments="true"/>
-        <!--
+<!--        <sqlFile dbms="H2"-->
+<!--                 encoding="utf8"-->
+<!--                 path="../data/products.sql"-->
+<!--                 relativeToChangelogFile="true"-->
+<!--                 splitStatements="true"-->
+<!--                 stripComments="true"-->
+<!--                />-->
                 <loadData encoding="UTF-8"
                                 file="db/data/products.csv"
                                 tableName="products">
-                    <column name="id" header="id" type="int"/>
-                    <column name="name" header="name" type="varchar(255)"/>
-                    <column name="calories" header="calories" type="float"/>
-                    <column name="proteins" header="proteins" type="float"/>
-                    <column name="fats" header="fats" type="float"/>
-                    <column name="carbohydrates" header="carbohydrates" type="float"/>
+                    <column name="id" header="id" type="NUMERIC"/>
+                    <column name="name" header="name" type="STRING"/>
+                    <column name="calories" header="calories" type="NUMERIC"/>
+                    <column name="proteins" header="proteins" type="NUMERIC"/>
+                    <column name="fats" header="fats" type="NUMERIC"/>
+                    <column name="carbohydrates" header="carbohydrates" type="NUMERIC"/>
                 </loadData>
                 <loadData encoding="UTF-8"
                                 file="db/data/categories.csv"
                                 tableName="categories">
-                    <column name="id" type="int"/>
-                    <column name="name" type="varchar(255)"/>
+                    <column name="id" type="NUMERIC"/>
+                    <column name="name" type="STRING"/>
                 </loadData>
                 <loadData encoding="UTF-8"
                                 file="db/data/product_categories.csv"
                                 tableName="product_categories">
-                    <column name="product_id" type="int"/>
-                    <column name="category_id" type="int"/>
+                    <column name="product_id" type="NUMERIC"/>
+                    <column name="category_id" type="NUMERIC"/>
                 </loadData>
-                -->
     </changeSet>
 </databaseChangeLog>
