@@ -1,6 +1,7 @@
 package com.kanstantin.camping.controllers;
 
 import com.kanstantin.camping.domain.MyResponse;
+import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
 import com.kanstantin.camping.services.CommonService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -33,7 +36,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-    public ResponseEntity<MyResponse> getProducts(@PathVariable(name = "id") String id) {
+    public ResponseEntity<MyResponse> getProductById(@PathVariable(name = "id") String id) {
 
         ProductDTO dto = commonService.getProduct(Integer.parseInt(id));
         ResponseEntity<MyResponse> responseEntity = null;
@@ -65,5 +68,11 @@ public class ProductController {
         }
         commonService.deleteProduct(product.getId());
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public ResponseEntity<MyResponse> getCategories() {
+        List<CategoryDTO> categories = commonService.getCategories();
+        return ResponseEntity.ok(new MyResponse(1000, "success", categories));
     }
 }

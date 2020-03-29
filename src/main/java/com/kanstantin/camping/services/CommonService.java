@@ -4,6 +4,7 @@ import com.kanstantin.camping.domain.CategoryEntity;
 import com.kanstantin.camping.domain.CategoryRepository;
 import com.kanstantin.camping.domain.ProductEntity;
 import com.kanstantin.camping.domain.ProductRepository;
+import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -86,5 +88,16 @@ public class CommonService {
 
     public void deleteProduct(Integer id) {
         productRepository.deleteById(id);
+    }
+
+    public List<CategoryDTO> getCategories() {
+        List<CategoryDTO> result = new ArrayList<>();
+        Iterator<CategoryEntity> it = categoryRepository.findAll().iterator();
+        while (it.hasNext()) {
+            CategoryEntity entity = it.next();
+            CategoryDTO dto = new CategoryDTO();
+            mapper.map(entity, dto);
+        }
+        return result;
     }
 }

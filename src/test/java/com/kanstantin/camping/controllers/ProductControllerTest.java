@@ -91,4 +91,11 @@ public class ProductControllerTest extends MyIntegrationTest {
                 .andDo(print())
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testCategoriesFindAll() throws Exception {
+        mockMvc.perform(get("/api/categories"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
 }
