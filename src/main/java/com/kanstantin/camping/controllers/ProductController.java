@@ -36,9 +36,9 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-    public ResponseEntity<MyResponse> getProductById(@PathVariable(name = "id") String id) {
+    public ResponseEntity<MyResponse> getProductById(@PathVariable(name = "id") Integer id) {
 
-        ProductDTO dto = commonService.getProduct(Integer.parseInt(id));
+        ProductDTO dto = commonService.getProduct(id);
         ResponseEntity<MyResponse> responseEntity = null;
 
         if (dto != null) {
