@@ -109,4 +109,41 @@
                     <column name="category_id" type="NUMERIC"/>
                 </loadData>
     </changeSet>
+
+    <changeSet id="03" author="kanstantin">
+        <createTable tableName="dishes">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="04" author="kanstantin">
+        <createTable tableName="dish_ingredients">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="amount" type="FLOAT"/>
+            <column name="dish_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="dish_ingredients"
+                baseColumnNames="dish_id"
+                referencedTableName="dishes"
+                referencedColumnNames="id"
+                constraintName="fk_dish_ingredients_dishes"/>
+
+        <!-- Product FK added only if "Product" table exists -->
+    </changeSet>
 </databaseChangeLog>
