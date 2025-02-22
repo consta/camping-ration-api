@@ -52,7 +52,6 @@
                           tableName="categories"/>
 
         <createTable tableName="product_categories"
-                     schemaName="PUBLIC"
                      remarks="A table with list of product categories">
             <column name="id" type="int">
                 <constraints nullable="false"></constraints>

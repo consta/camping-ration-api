@@ -1,6 +1,6 @@
 package com.kanstantin.camping.controllers;
 
-import com.kanstantin.camping.domain.MyResponse;
+import com.kanstantin.camping.model.MyResponse;
 import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
 import com.kanstantin.camping.services.CommonService;

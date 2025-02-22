@@ -1,4 +1,4 @@
-package com.kanstantin.camping.domain;
+package com.kanstantin.camping.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

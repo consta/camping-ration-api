@@ -1,22 +1,20 @@
 package com.kanstantin.camping.services;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.kanstantin.camping.domain.CategoryEntity;
 import com.kanstantin.camping.domain.CategoryRepository;
 import com.kanstantin.camping.domain.ProductEntity;
 import com.kanstantin.camping.domain.ProductRepository;
 import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CommonService {
@@ -92,12 +90,86 @@ public class CommonService {
 
     public List<CategoryDTO> getCategories() {
         List<CategoryDTO> result = new ArrayList<>();
-        Iterator<CategoryEntity> it = categoryRepository.findAll().iterator();
-        while (it.hasNext()) {
-            CategoryEntity entity = it.next();
+        for (CategoryEntity entity : categoryRepository.findAll()) {
             CategoryDTO dto = new CategoryDTO();
             mapper.map(entity, dto);
         }
         return result;
+    }
+
+    /**
+     * Get all categories.
+     *
+     * @return List of CategoryDTO
+     */
+    public List<CategoryDTO> getAllCategories() {
+        return getCategories();
+    }
+
+    /**
+     * Add a new category.
+     *
+     * @param dto Category to add
+     * @return Created CategoryDTO
+     */
+    public CategoryDTO addCategory(CategoryDTO dto) {
+        CategoryEntity entity = convertToEntity(dto);
+        CategoryEntity savedEntity = categoryRepository.save(entity);
+        return convertToDTO(savedEntity);
+    }
+
+    /**
+     * Get category by ID.
+     *
+     * @param id Category ID
+     * @return CategoryDTO
+     */
+    public CategoryDTO getCategoryById(Integer id) {
+        CategoryEntity entity = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+        return convertToDTO(entity);
+    }
+
+    /**
+     * Update category by ID.
+     *
+     * @param id  Category ID
+     * @param dto New data for category
+     * @return Updated CategoryDTO
+     */
+    public CategoryDTO updateCategory(Integer id, CategoryDTO dto) {
+        CategoryEntity existingEntity = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+
+        existingEntity.setName(dto.getName());
+
+        CategoryEntity updatedEntity = categoryRepository.save(existingEntity);
+        return convertToDTO(updatedEntity);
+    }
+
+    /**
+     * Delete category by ID.
+     *
+     * @param id Category ID
+     */
+    public void deleteCategory(Integer id) {
+        if (!categoryRepository.existsById(id)) {
+            throw new RuntimeException("Category not found with id: " + id);
+        }
+        categoryRepository.deleteById(id);
+    }
+
+    /**
+     * Convert CategoryEntity to CategoryDTO.
+     */
+    private CategoryDTO convertToDTO(CategoryEntity entity) {
+        return new CategoryDTO(entity.getId(), entity.getName());
+    }
+
+    /**
+     * Convert CategoryDTO to CategoryEntity.
+     */
+    private CategoryEntity convertToEntity(CategoryDTO dto) {
+        return new CategoryEntity(dto.getId(), dto.getName());
     }
 }
