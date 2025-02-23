@@ -3,7 +3,7 @@ package com.kanstantin.camping.controllers;
 import com.kanstantin.camping.model.MyResponse;
 import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
-import com.kanstantin.camping.services.CommonService;
+import com.kanstantin.camping.services.ProductsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,25 +20,25 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProductController {
     @Autowired
-    private CommonService commonService;
+    private ProductsService productsService;
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<MyResponse> getProducts() {
-        MyResponse response = new MyResponse(1000, "success", commonService.getProducts());
+        MyResponse response = new MyResponse(1000, "success", productsService.getProducts());
         log.info("retrieved all products, {}", response);
         return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<MyResponse> addProduct(@RequestBody ProductDTO dto) {
-        MyResponse response = new MyResponse(1000, "success", commonService.createProduct(dto));
+        MyResponse response = new MyResponse(1000, "success", productsService.createProduct(dto));
         return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
     public ResponseEntity<MyResponse> getProductById(@PathVariable(name = "id") Integer id) {
 
-        ProductDTO dto = commonService.getProduct(id);
+        ProductDTO dto = productsService.getProduct(id);
         ResponseEntity<MyResponse> responseEntity = null;
 
         if (dto != null) {
@@ -52,27 +52,27 @@ public class ProductController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.PUT)
     public ResponseEntity<MyResponse> updateProduct(@PathVariable(name = "id") String id,
                                                     @RequestBody ProductDTO newProductDTO) {
-        ProductDTO productBefore = commonService.getProduct(Integer.parseInt(id));
+        ProductDTO productBefore = productsService.getProduct(Integer.parseInt(id));
         if (productBefore == null) {
             return ResponseEntity.notFound().build();
         }
-        ProductDTO productAfter = commonService.updateProduct(newProductDTO);
+        ProductDTO productAfter = productsService.updateProduct(newProductDTO);
         return ResponseEntity.ok(new MyResponse(1000, "success", productAfter));
     }
 
     @RequestMapping(value = "/products/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<MyResponse> deleteProduct(@PathVariable(name = "id") String id) {
-        ProductDTO product = commonService.getProduct(Integer.parseInt(id));
+        ProductDTO product = productsService.getProduct(Integer.parseInt(id));
         if (product == null) {
             return ResponseEntity.notFound().build();
         }
-        commonService.deleteProduct(product.getId());
+        productsService.deleteProduct(product.getId());
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/categories", method = RequestMethod.GET)
     public ResponseEntity<MyResponse> getCategories() {
-        List<CategoryDTO> categories = commonService.getCategories();
+        List<CategoryDTO> categories = productsService.getCategories();
         return ResponseEntity.ok(new MyResponse(1000, "success", categories));
     }
 }

@@ -1,13 +1,8 @@
 package com.kanstantin.camping.model;
 
-import com.kanstantin.camping.domain.CategoryEntity;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.dozer.Mapping;
-
 import java.util.List;
-import java.util.Set;
+
+import lombok.Data;
 
 @Data
 public class ProductDTO {

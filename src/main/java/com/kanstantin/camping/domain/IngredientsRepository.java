@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DishIngridientRepository extends CrudRepository<DishIngridientsEntity, Integer> {
+public interface IngredientsRepository extends CrudRepository<Ingredient, Integer> {
 }

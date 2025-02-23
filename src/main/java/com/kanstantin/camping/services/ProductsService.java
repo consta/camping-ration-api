@@ -9,15 +9,15 @@ import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.kanstantin.camping.domain.CategoryEntity;
+import com.kanstantin.camping.domain.Category;
 import com.kanstantin.camping.domain.CategoryRepository;
-import com.kanstantin.camping.domain.ProductEntity;
+import com.kanstantin.camping.domain.Product;
 import com.kanstantin.camping.domain.ProductRepository;
 import com.kanstantin.camping.model.CategoryDTO;
 import com.kanstantin.camping.model.ProductDTO;
 
 @Service
-public class CommonService {
+public class ProductsService {
     @Autowired
     private ProductRepository productRepository;
 
@@ -39,38 +39,38 @@ public class CommonService {
     }
 
     public ProductDTO updateProduct(ProductDTO newProductDto) {
-        ProductEntity entity = toProductEntity(newProductDto);
+        Product entity = toProductEntity(newProductDto);
         return toProductDTO(productRepository.save(entity));
     }
 
     public ProductDTO createProduct(ProductDTO dto) {
 
-        ProductEntity entity = new ProductEntity();
+        Product entity = new Product();
         mapper.map(dto, entity);
         entity = productRepository.save(entity);
         entity = persistProductCategories(dto, entity);
         return toProductDTO(entity);
     }
 
-    private ProductDTO toProductDTO(ProductEntity entity) {
+    private ProductDTO toProductDTO(Product entity) {
         if (entity == null) {
             return null;
         }
         ProductDTO dto = new ProductDTO();
         mapper.map(entity, dto);
-        dto.setCategories(entity.getCategories().stream().map(CategoryEntity::getId).collect(Collectors.toList()));
+        dto.setCategories(entity.getCategories().stream().map(Category::getId).collect(Collectors.toList()));
         return dto;
     }
 
-    private ProductEntity toProductEntity(ProductDTO dto) {
-        ProductEntity entity = new ProductEntity();
+    private Product toProductEntity(ProductDTO dto) {
+        Product entity = new Product();
         mapper.map(dto, entity);
         return persistProductCategories(dto, entity);
     }
 
-    private ProductEntity persistProductCategories(ProductDTO dto, ProductEntity entity) {
+    private Product persistProductCategories(ProductDTO dto, Product entity) {
         if (dto.getCategories() != null) {
-            List<CategoryEntity> categoryEntities = new ArrayList<>();
+            List<Category> categoryEntities = new ArrayList<>();
             dto.getCategories()
                     .stream()
                     .forEach(i -> {
@@ -90,7 +90,7 @@ public class CommonService {
 
     public List<CategoryDTO> getCategories() {
         List<CategoryDTO> result = new ArrayList<>();
-        for (CategoryEntity entity : categoryRepository.findAll()) {
+        for (Category entity : categoryRepository.findAll()) {
             CategoryDTO dto = new CategoryDTO();
             mapper.map(entity, dto);
         }
@@ -113,8 +113,8 @@ public class CommonService {
      * @return Created CategoryDTO
      */
     public CategoryDTO addCategory(CategoryDTO dto) {
-        CategoryEntity entity = convertToEntity(dto);
-        CategoryEntity savedEntity = categoryRepository.save(entity);
+        Category entity = convertToEntity(dto);
+        Category savedEntity = categoryRepository.save(entity);
         return convertToDTO(savedEntity);
     }
 
@@ -125,7 +125,7 @@ public class CommonService {
      * @return CategoryDTO
      */
     public CategoryDTO getCategoryById(Integer id) {
-        CategoryEntity entity = categoryRepository.findById(id)
+        Category entity = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
         return convertToDTO(entity);
     }
@@ -138,12 +138,12 @@ public class CommonService {
      * @return Updated CategoryDTO
      */
     public CategoryDTO updateCategory(Integer id, CategoryDTO dto) {
-        CategoryEntity existingEntity = categoryRepository.findById(id)
+        Category existingEntity = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
 
         existingEntity.setName(dto.getName());
 
-        CategoryEntity updatedEntity = categoryRepository.save(existingEntity);
+        Category updatedEntity = categoryRepository.save(existingEntity);
         return convertToDTO(updatedEntity);
     }
 
@@ -162,14 +162,14 @@ public class CommonService {
     /**
      * Convert CategoryEntity to CategoryDTO.
      */
-    private CategoryDTO convertToDTO(CategoryEntity entity) {
+    private CategoryDTO convertToDTO(Category entity) {
         return new CategoryDTO(entity.getId(), entity.getName());
     }
 
     /**
      * Convert CategoryDTO to CategoryEntity.
      */
-    private CategoryEntity convertToEntity(CategoryDTO dto) {
-        return new CategoryEntity(dto.getId(), dto.getName());
+    private Category convertToEntity(CategoryDTO dto) {
+        return new Category(dto.getId(), dto.getName());
     }
 }

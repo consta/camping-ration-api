@@ -7,7 +7,7 @@
 
     <mapping>
         <class-a>com.kanstantin.camping.model.ProductDTO</class-a>
-        <class-b>com.kanstantin.camping.domain.ProductEntity</class-b>
+        <class-b>com.kanstantin.camping.domain.Product</class-b>
         <field>
             <a>id</a>
             <b>id</b>

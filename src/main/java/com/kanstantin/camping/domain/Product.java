@@ -1,6 +1,6 @@
 package com.kanstantin.camping.domain;
 
-import lombok.Data;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,14 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import java.util.Set;
+
+import lombok.Data;
 
 @Entity
-@Table(name = "products")
+@Table(name = "product")
 @Data
-public class ProductEntity {
+public class Product {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,8 +44,8 @@ public class ProductEntity {
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<CategoryEntity> categories;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Category> categories;
 
 
 
