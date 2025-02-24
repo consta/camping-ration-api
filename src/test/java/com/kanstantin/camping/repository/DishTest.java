@@ -1,5 +1,6 @@
-package com.kanstantin.camping;
+package com.kanstantin.camping.repository;
 
+import com.kanstantin.camping.MyIntegrationTest;
 import com.kanstantin.camping.domain.Dish;
 import com.kanstantin.camping.domain.Ingredient;
 import com.kanstantin.camping.domain.Product;
@@ -12,7 +13,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,7 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Slf4j
-public class RepositoryTest extends MyIntegrationTest {
+public class DishTest extends MyIntegrationTest {
     @Autowired
     private ProductRepository repository;
 
@@ -54,29 +54,6 @@ public class RepositoryTest extends MyIntegrationTest {
         log.info("Product = {}", p);
     }
 
-    @Test
-    public void testSaveDish() throws Exception {
-//        DishDTO dto = new DishDTO();
-//        dto.setName("Dish 1");
-//        dto.setDescription("Description");
-//        List<IngredientDTO> ingredients = new ArrayList<>();
-//        IngredientDTO i1 = new IngredientDTO();
-//        i1.setProductId(10000);
-//        i1.setAmount(100.0f);
-//        i1.setComment("Comment 1");
-//        IngredientDTO i2 = new IngredientDTO();
-//        i2.setProductId(10001);
-//        i2.setAmount(155.0f);
-//        i2.setComment("Comment 2");
-//        ingredients.add(i1);
-//        ingredients.add(i2);
-//        dto.setIngredients(ingredients);
-//
-//        dto = dishService.createDish(dto);
-//        assertTrue(dto.getId() > 0);
-//        DishDTO newDto = dishService.getDish(dto.getId());
-//        System.out.println(newDto);
-    }
 
     @Test
     public void testDishesFromHibernate() throws Exception {

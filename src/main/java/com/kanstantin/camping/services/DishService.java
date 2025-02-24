@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kanstantin.camping.domain.Dish;
 import com.kanstantin.camping.domain.DishRepository;
@@ -44,7 +46,7 @@ public class DishService {
     public DishDTO getDish(Integer id) {
         return dishRepository.findById(id)
                 .map(this::toDishDTO)
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Dish not found: " + id));
     }
 
     /**
@@ -71,7 +73,6 @@ public class DishService {
     public DishDTO createDish(DishDTO dto) {
         Dish entity = new Dish();
         mapper.map(dto, entity);
-        entity = toDishEntity(dto, entity);
         entity = dishRepository.save(entity);
         return toDishDTO(entity);
     }

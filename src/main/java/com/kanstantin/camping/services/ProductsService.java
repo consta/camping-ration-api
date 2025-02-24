@@ -93,6 +93,7 @@ public class ProductsService {
         for (Category entity : categoryRepository.findAll()) {
             CategoryDTO dto = new CategoryDTO();
             mapper.map(entity, dto);
+            result.add(dto);
         }
         return result;
     }

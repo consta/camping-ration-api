@@ -58,13 +58,13 @@ public class ProductControllerTest extends MyIntegrationTest {
     @Test
     public void testUpdateProduct() throws Exception {
         ProductDTO dto = new ProductDTO();
-        dto.setId(10000);
+        dto.setId(10002);
         dto.setName("Updated name");
         dto.setCalories(999.9F);
         dto.setProteins(1.1F);
         dto.setFats(2.2F);
         dto.setCarbohydrates(3.3F);
-        dto.setCategories(Arrays.asList(200));
+        dto.setCategories(Arrays.asList(202));
         ObjectMapper oMapper = new ObjectMapper();
         String json = oMapper.writeValueAsString(dto);
         mockMvc.perform(put("/api/products/" + dto.getId())
