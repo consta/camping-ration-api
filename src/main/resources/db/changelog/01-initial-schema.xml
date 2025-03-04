@@ -19,6 +19,9 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
+            <column name="description" type="varchar(2048)">
+                <constraints nullable="true" unique="false"/>
+            </column>
             <column name="calories" type="float"></column>
             <column name="proteins" type="float"></column>
             <column name="fats" type="float"></column>
@@ -42,6 +45,9 @@
             </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="varchar(2048)">
+                <constraints nullable="true" unique="false"/>
             </column>
         </createTable>
 
@@ -116,6 +122,12 @@
             </column>
             <column name="description" type="VARCHAR(1024)"/>
         </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          startWith="1"
+                          tableName="dish"/>
     </changeSet>
 
     <changeSet id="04" author="kanstantin">
@@ -128,14 +140,30 @@
             <column name="product_id" type="INT">
                 <constraints nullable="false"/>
             </column>
+            <column name="dish_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          incrementBy="1"
+                          startWith="1"
+                          tableName="ingredient"/>
 
         <addForeignKeyConstraint
                 baseTableName="ingredient"
                 baseColumnNames="product_id"
                 referencedTableName="product"
                 referencedColumnNames="id"
-                constraintName="fk_dish_ingredients_product"/>
+                constraintName="fk_ingredients_product"/>
+
+        <addForeignKeyConstraint
+                baseTableName="ingredient"
+                baseColumnNames="dish_id"
+                referencedTableName="dish"
+                referencedColumnNames="id"
+                constraintName="fk_ingredients_dish"/>
     </changeSet>
 
     <changeSet id="05" author="kanstantin">

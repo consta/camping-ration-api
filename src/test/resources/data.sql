@@ -15,12 +15,10 @@ insert into product_categories (product_id, category_id) values (10000, 201);
 insert into product_categories (product_id, category_id) values (10001, 201);
 insert into product_categories (product_id, category_id) values (10002, 202);
 
-insert into ingredient (id, comment, amount, product_id) values (1, 'Product #1', 155.5, 10000);
-insert into ingredient (id, comment, amount, product_id) values (2, 'Product #2', 200.1, 10001);
-
 insert into dish (id, name, description) values (1, 'Dish #1', 'Description for dish #1');
 
-insert into dish_ingredients (dish_id, ingredient_id) values (1, 1);
-insert into dish_ingredients (dish_id, ingredient_id) values (1, 2);
+insert into ingredient (id, comment, amount, product_id, dish_id) values (1, 'Product #1', 155.5, 10000, 1);
+insert into ingredient (id, comment, amount, product_id, dish_id) values (2, 'Product #2', 200.1, 10001, 1);
+
 
 set referential_integrity true;

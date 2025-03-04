@@ -1,3 +1,18 @@
+GET http://localhost:9001/api/products/4
+
+###
 GET http://localhost:9001/api/categories
 
 
+###
+PUT http://localhost:9001/api/products/3
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Галеты \"Поход-2\"",
+  "calories": 334.0,
+  "proteins": 12.7,
+  "fats": 0.0,
+  "carbohydrates": 68.8
+}

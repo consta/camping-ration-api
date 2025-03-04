@@ -1,29 +1,27 @@
 package com.kanstantin.camping.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kanstantin.camping.MyIntegrationTest;
-import com.kanstantin.camping.model.ProductDTO;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.util.Arrays;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-public class ProductControllerTest extends MyIntegrationTest {
+import java.util.Arrays;
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kanstantin.camping.MyIntegrationTest;
+import com.kanstantin.camping.model.ProductDTO;
+
+public class ProductApiControllerTest extends MyIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
@@ -64,7 +62,7 @@ public class ProductControllerTest extends MyIntegrationTest {
         dto.setProteins(1.1F);
         dto.setFats(2.2F);
         dto.setCarbohydrates(3.3F);
-        dto.setCategories(Arrays.asList(202));
+        dto.setCategories(Set.of(202));
         ObjectMapper oMapper = new ObjectMapper();
         String json = oMapper.writeValueAsString(dto);
         mockMvc.perform(put("/api/products/" + dto.getId())
@@ -82,7 +80,7 @@ public class ProductControllerTest extends MyIntegrationTest {
         dto.setProteins(11.11F);
         dto.setFats(22.22F);
         dto.setCarbohydrates(33.33F);
-        dto.setCategories(Arrays.asList(201));
+        dto.setCategories(Set.of(201));
         ObjectMapper oMapper = new ObjectMapper();
         String json = oMapper.writeValueAsString(dto);
         mockMvc.perform(post("/api/products/")

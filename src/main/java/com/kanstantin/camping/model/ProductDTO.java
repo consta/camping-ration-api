@@ -1,6 +1,7 @@
 package com.kanstantin.camping.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -12,6 +13,6 @@ public class ProductDTO {
     private Float proteins;
     private Float fats;
     private Float carbohydrates;
-    private List<Integer> categories;
+    private Set<Integer> categories = new HashSet<>();
 
 }
