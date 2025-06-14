@@ -1,7 +1,9 @@
 package com.kanstantin.camping.domain;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -46,6 +48,12 @@ public class GenericDao {
     public <T extends EntityM> boolean deleteById(Integer id, Class<T> clazz) {
         String tableName = clazz.getAnnotation(TableM.class).name();
         String sql = "DELETE * FROM " + tableName + " WHERE id = " + id;
+        return jdbcTemplate.update(sql) == 1;
+    }
+
+    public <T extends EntityM> boolean deleteAllById(List<Integer> ids, Class<T> clazz) {
+        String tableName = clazz.getAnnotation(TableM.class).name();
+        String sql = "DELETE * FROM " + tableName + " WHERE id in (" + ids.stream().map(Objects::toString).collect(Collectors.joining(",")) + ")";
         return jdbcTemplate.update(sql) == 1;
     }
 

@@ -16,3 +16,36 @@ Content-Type: application/json
   "fats": 0.0,
   "carbohydrates": 68.8
 }
+
+###
+PUT http://localhost:9001/api/trips/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "ПВД 2025-May-11 Updated",
+  "description": "Обновленный легкий поход выходного дня",
+  "startDate": "20250512",
+  "endDate": "20250513",
+  "participants": 6
+}
+
+###
+GET http://localhost:9001/api/trips/1/days?readDescendants=true
+
+###
+POST http://localhost:9001/api/trips/1/days
+Content-Type: application/json
+
+{
+  "name": "day 1",
+  "participants": 6
+}
+
+###
+POST http://localhost:9001/api/trips/1/days/1/meals
+Content-Type: application/json
+
+{
+  "name": "завтрак"
+}
